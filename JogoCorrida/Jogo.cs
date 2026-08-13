@@ -26,6 +26,7 @@
             Obstaculos = FabricaObstaculos(3, 10, 50);
         }
 
+        //sera que essa função funciona? pq ele pode criar mais de um objeto seguidamente...
         public List<Elemento> FabricaObstaculos(int qtd, int dmin, int dmax)
         {
             var y_inicial = 0;
@@ -93,6 +94,7 @@
             return false;
         }
 
+        // o professor também n fez essa parte ainda, talvez esteja certo, talvez esteja errado
         public bool VerificaFimJogo()
         {
             if (ChecarColisao() == true)
