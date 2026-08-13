@@ -23,10 +23,8 @@
             Carro.PosicaoX = PosicionaObjeto(1);
             Carro.PosicaoY = YMaximo - 10;
 
-            Obstaculos = FabricaObstaculos(3, 10, 50);
+            Obstaculos = FabricaObstaculos(3, 2, 12);
         }
-
-        //sera que essa função funciona? pq ele pode criar mais de um objeto seguidamente...
         public List<Elemento> FabricaObstaculos(int qtd, int dmin, int dmax)
         {
             var y_inicial = 0;
@@ -36,15 +34,17 @@
             for (int i = 0; i < qtd; i++)
             {
                 if (i != 0)
-                {
                     y_inicial -= rnd.Next(dmin, dmax);
-                }
+                var ob = new Elemento
+                {
+                    Tipo = TipoElemento.Obstaculo
 
-                var ob = new Elemento();
-                ob.Tipo = TipoElemento.Obstaculo;
-                var faixa = rnd.Next(1, 2);
+                };
+               //ob.Tipo = TipoElemento.;
+                var faixa = rnd.Next(1, 3);
                 ob.PosicaoX = PosicionaObjeto(faixa);
                 ob.PosicaoY = y_inicial;
+                obstaculos.Add(ob);
             }
             return obstaculos;
         }
@@ -85,9 +85,9 @@
         {
             foreach (var ob in Obstaculos)
             {
-                if (ChecaFaixaElemento (Carro) == ChecaFaixaElemento(ob))
+                if (ChecaFaixaElemento(Carro) == ChecaFaixaElemento(ob))
                 {
-                    if (Math.Abs(Carro.PosicaoY - ob.PosicaoY) <= 10)
+                    if (Math.Abs(Carro.PosicaoY - ob.PosicaoY) == 0)
                         return true;
                 }
             }
@@ -102,6 +102,18 @@
                 return true;
             }
             return false;
+        }
+
+        public void MovimentaObstaculos()
+        {
+            foreach (var ob in Obstaculos)
+            {
+                ob.PosicaoY++;
+                if(ob.PosicaoY > YMaximo)
+                {
+                    ob.PosicaoY = 0;
+                }
+            }
         }
     }
 }
