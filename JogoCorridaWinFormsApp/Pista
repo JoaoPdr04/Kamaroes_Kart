@@ -1,0 +1,81 @@
+using JogoCorrida;
+using JogoCorridaWinFormsApp.Properties;
+using System.Drawing.Text;
+using System.Resources;
+
+namespace JogoCorridaWinFormsApp
+{
+    public partial class Pista : Form
+    {
+        Jogo jogo;
+        DateTime temporUltimaMovimentacao = DateTime.Now;
+        List<PictureBox> pictureBoxes = [];
+
+        public Pista() //método 
+        {
+            InitializeComponent();
+            Jogo jogo = new Jogo();
+            jogo.Faixa1Inicio = 2;
+            jogo.Faixa1Fim = 12;
+            jogo.Faixa2Inicio = 13;
+            jogo.Faixa2Fim = 21;
+
+            jogo.IniciaJogo();
+            jogo.Carro.PosicaoX = jogo.PosicionaObjeto(1);
+            jogo.Carro.PosicaoY = 12;
+            jogo.YMaximo = 10;
+
+            jogo.Velocidade = 150;
+            var tempoUltimaMovimentaCarro = DateTime.Now;
+            var pictureBoxes = new List<PictureBox>();
+
+            foreach (var obj in jogo.Obstaculos)
+            {
+                var picOb = new PictureBox();
+                picOb.BackColor = Color.Transparent;
+                //ta faltando o picOb.BackgroundImage = Properties.Resources.carro2_removebg_preview;
+                picOb.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBoxes.Add(picOb);
+                this.Controls.Add(picOb);
+            }
+            timerJogo.Enabled = true;
+        }
+
+
+        private void Pista_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left)
+            {
+                jogo.Carro.PosicaoX = jogo.PosicionaObjeto(1);
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                jogo.Carro.PosicaoX = jogo.PosicionaObjeto(2);
+            }
+        }
+
+        private void timerJogo_Tick(object sender, EventArgs e)
+        {
+            picCarro.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
+            var i = 0;
+            foreach (var ob in jogo.Obstaculos)
+            {
+                if (ob.PosicaoY >= 0)
+                {
+                    pictureBoxes[i].Location = new Point(ob.PosicaoX, ob.PosicaoY);
+                }
+
+                if ((DateTime.Now - temporUltimaMovimentacao).Milliseconds >= jogo.Velocidade)
+                {
+                    temporUltimaMovimentacao = DateTime.Now;
+                    jogo.MovimentaObstaculos();
+                }
+
+                if (jogo.ChecarColisao())
+                {
+                    Application.Exit();
+                }
+            }
+        }
+    }
+}
