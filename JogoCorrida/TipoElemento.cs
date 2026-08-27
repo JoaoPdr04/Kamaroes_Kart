@@ -3,6 +3,7 @@
     public enum TipoElemento
     {
         Carro,
-        Obstaculo
+        Obstaculo,
+        Moeda
     }
 }

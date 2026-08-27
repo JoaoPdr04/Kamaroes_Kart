@@ -34,9 +34,11 @@
             picCarro = new PictureBox();
             fotoObjeto = new PictureBox();
             timerJogo = new System.Windows.Forms.Timer(components);
+            fotoMoeda = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCarro).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fotoObjeto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)fotoMoeda).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -60,7 +62,6 @@
             picCarro.SizeMode = PictureBoxSizeMode.StretchImage;
             picCarro.TabIndex = 1;
             picCarro.TabStop = false;
-            picCarro.Click += picCarro_Click;
             // 
             // fotoObjeto
             // 
@@ -77,6 +78,17 @@
             // 
             timerJogo.Tick += timerJogo_Tick;
             // 
+            // fotoMoeda
+            // 
+            fotoMoeda.BackColor = Color.Transparent;
+            fotoMoeda.Image = (Image)resources.GetObject("fotoMoeda.Image");
+            fotoMoeda.Location = new Point(29, 96);
+            fotoMoeda.Name = "fotoMoeda";
+            fotoMoeda.Size = new Size(72, 98);
+            fotoMoeda.SizeMode = PictureBoxSizeMode.StretchImage;
+            fotoMoeda.TabIndex = 3;
+            fotoMoeda.TabStop = false;
+            // 
             // Pista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -84,6 +96,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(740, 742);
+            Controls.Add(fotoMoeda);
             Controls.Add(fotoObjeto);
             Controls.Add(picCarro);
             Controls.Add(pictureBox1);
@@ -96,6 +109,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCarro).EndInit();
             ((System.ComponentModel.ISupportInitialize)fotoObjeto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)fotoMoeda).EndInit();
             ResumeLayout(false);
         }
 
@@ -105,5 +119,6 @@
         private PictureBox picCarro;
         private PictureBox fotoObjeto;
         private System.Windows.Forms.Timer timerJogo;
+        private PictureBox fotoMoeda;
     }
 }

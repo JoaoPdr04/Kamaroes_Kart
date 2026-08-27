@@ -1,6 +1,7 @@
 using JogoCorrida;
 using JogoCorridaWinFormsApp.Properties;
 using System.Drawing.Text;
+using System.Media;
 using System.Resources;
 using System.Windows.Forms;
 
@@ -11,10 +12,14 @@ namespace JogoCorridaWinFormsApp
         Jogo jogo;
         DateTime temporUltimaMovimentacao = DateTime.Now;
         List<PictureBox> pictureBoxes = [];
+        List<PictureBox> pictureBoxesMD = [];
 
-        public Pista() //método construtor que vai dar nascimento para o projeto
+
+        public Pista(string Nível) //método construtor que vai dar nascimento para o projeto
         {
             InitializeComponent();
+            TocarSomCorrida();
+
             jogo = new Jogo(); //aqui instanciamos o objeto jogo da classe Jogo
             jogo.Faixa1Inicio = 150;
             jogo.Faixa1Fim = 250;
@@ -26,9 +31,21 @@ namespace JogoCorridaWinFormsApp
             jogo.Carro.PosicaoY = 590;
             jogo.YMaximo = 800;
 
-            jogo.Velocidade = 50;
+            if (Nível == "Fácil")
+            {
+                jogo.Velocidade = 300;
+            }
+            else if (Nível == "Médio")
+            {
+                jogo.Velocidade = 150;
+            }
+            else if (Nível == "Difícil")
+                jogo.Velocidade = 50;
+
             var tempoUltimaMovimentaCarro = DateTime.Now;
             pictureBoxes = new List<PictureBox>();
+            pictureBoxesMD = new List<PictureBox>();
+
 
             foreach (var obj in jogo.Obstaculos)
             {
@@ -41,6 +58,18 @@ namespace JogoCorridaWinFormsApp
                 this.Controls.Add(picOb);
             }
             timerJogo.Enabled = true;
+
+
+            foreach (var med in jogo.Moedas)
+            {
+                var picMd = new PictureBox();
+                picMd.BackColor = Color.Transparent;
+                picMd.SizeMode = PictureBoxSizeMode.StretchImage;
+                picMd.Size = new Size(50, 100);
+                picMd.Image = fotoMoeda.Image;
+                pictureBoxesMD.Add(picMd);
+                this.Controls.Add(picMd);
+            }
         }
 
 
@@ -76,17 +105,38 @@ namespace JogoCorridaWinFormsApp
                 }
             }
 
+            for (int i = 0; i < jogo.Moedas.Count; i++)
+            {
+                var md = jogo.Obstaculos[i];
+
+                if (md.PosicaoY >= -50)
+                {
+                    pictureBoxesMD[i].Location = new Point(md.PosicaoX, md.PosicaoY);
+                }
+            }
+
             if (jogo.ChecarColisao())
             {
                 timerJogo.Enabled = false;
+                TocarSomBatida();
                 MessageBox.Show("Bateu!", "Fim de Jogo");
-                Application.Exit();
+                Application.Restart();
             }
         }
 
-        private void picCarro_Click(object sender, EventArgs e)
+        private void TocarSomCorrida()
         {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "D:\\joao\\jogo\\somBatida.wav";
+            sp.PlayLooping();
+        }
 
+        private void TocarSomBatida()
+        {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "D:\\joao\\jogo\\somBatida.wav";
+            sp.Play();
+            Thread.Sleep(1000);
         }
     }
 }
