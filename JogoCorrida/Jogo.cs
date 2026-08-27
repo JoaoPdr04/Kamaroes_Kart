@@ -23,24 +23,27 @@
             Carro.PosicaoX = PosicionaObjeto(1);
             Carro.PosicaoY = YMaximo - 10;
 
-            Obstaculos = FabricaObstaculos(3, 2, 12);
+            Carro.Altura = 100;
+            Carro.Largura = 50;
+
+            Obstaculos = FabricaObstaculos(3, 200, 400);
         }
         public List<Elemento> FabricaObstaculos(int qtd, int dmin, int dmax)
         {
-            var y_inicial = 0;
+            var y_inicial = -100;
             var rnd = new Random();
             var obstaculos = new List<Elemento>();
 
             for (int i = 0; i < qtd; i++)
             {
-                if (i != 0)
-                    y_inicial -= rnd.Next(dmin, dmax);
+                if (i != 0) y_inicial -= rnd.Next(dmin, dmax);
                 var ob = new Elemento
                 {
-                    Tipo = TipoElemento.Obstaculo
-
+                    Tipo = TipoElemento.Obstaculo,
+                    Altura = 100,
+                    Largura = 50
                 };
-               //ob.Tipo = TipoElemento.;
+ 
                 var faixa = rnd.Next(1, 3);
                 ob.PosicaoX = PosicionaObjeto(faixa);
                 ob.PosicaoY = y_inicial;
@@ -87,7 +90,7 @@
             {
                 if (ChecaFaixaElemento(Carro) == ChecaFaixaElemento(ob))
                 {
-                    if (Math.Abs(Carro.PosicaoY - ob.PosicaoY) == 0)
+                    if (Math.Abs((Carro.PosicaoY + 50) - (ob.PosicaoY + 100)) <= 30)
                         return true;
                 }
             }
@@ -97,18 +100,14 @@
         // o professor também n fez essa parte ainda, talvez esteja certo, talvez esteja errado
         public bool VerificaFimJogo()
         {
-            if (ChecarColisao() == true)
-            {
-                return true;
-            }
-            return false;
+            return ChecarColisao();
         }
 
         public void MovimentaObstaculos()
         {
             foreach (var ob in Obstaculos)
             {
-                ob.PosicaoY++;
+                ob.PosicaoY += 15;
                 if(ob.PosicaoY > YMaximo)
                 {
                     ob.PosicaoY = 0;

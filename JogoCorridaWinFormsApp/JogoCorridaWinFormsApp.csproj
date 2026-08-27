@@ -27,4 +27,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Update="Pista.cs">
+			<SubType>Form</SubType>
+		</Compile>
+	</ItemGroup>
+	
 </Project>

@@ -32,19 +32,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pista));
             pictureBox1 = new PictureBox();
             picCarro = new PictureBox();
-            picOb = new PictureBox();
+            fotoObjeto = new PictureBox();
             timerJogo = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCarro).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picOb).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)fotoObjeto).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(562, 12);
+            pictureBox1.Location = new Point(633, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(167, 102);
+            pictureBox1.Size = new Size(95, 86);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -52,24 +52,26 @@
             // picCarro
             // 
             picCarro.BackColor = Color.Transparent;
+            picCarro.BackgroundImageLayout = ImageLayout.None;
             picCarro.Image = (Image)resources.GetObject("picCarro.Image");
-            picCarro.Location = new Point(256, 626);
+            picCarro.Location = new Point(196, 568);
             picCarro.Name = "picCarro";
-            picCarro.Size = new Size(73, 99);
+            picCarro.Size = new Size(140, 162);
             picCarro.SizeMode = PictureBoxSizeMode.StretchImage;
             picCarro.TabIndex = 1;
             picCarro.TabStop = false;
+            picCarro.Click += picCarro_Click;
             // 
-            // picOb
+            // fotoObjeto
             // 
-            picOb.BackColor = Color.Transparent;
-            picOb.Image = (Image)resources.GetObject("picOb.Image");
-            picOb.Location = new Point(256, 25);
-            picOb.Name = "picOb";
-            picOb.Size = new Size(67, 78);
-            picOb.SizeMode = PictureBoxSizeMode.StretchImage;
-            picOb.TabIndex = 2;
-            picOb.TabStop = false;
+            fotoObjeto.BackColor = Color.Transparent;
+            fotoObjeto.Image = (Image)resources.GetObject("fotoObjeto.Image");
+            fotoObjeto.Location = new Point(29, 12);
+            fotoObjeto.Name = "fotoObjeto";
+            fotoObjeto.Size = new Size(67, 78);
+            fotoObjeto.SizeMode = PictureBoxSizeMode.StretchImage;
+            fotoObjeto.TabIndex = 2;
+            fotoObjeto.TabStop = false;
             // 
             // timerJogo
             // 
@@ -82,7 +84,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(740, 742);
-            Controls.Add(picOb);
+            Controls.Add(fotoObjeto);
             Controls.Add(picCarro);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
@@ -93,7 +95,7 @@
             KeyDown += Pista_KeyDown;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCarro).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picOb).EndInit();
+            ((System.ComponentModel.ISupportInitialize)fotoObjeto).EndInit();
             ResumeLayout(false);
         }
 
@@ -101,7 +103,7 @@
 
         private PictureBox pictureBox1;
         private PictureBox picCarro;
-        private PictureBox picOb;
+        private PictureBox fotoObjeto;
         private System.Windows.Forms.Timer timerJogo;
     }
 }
