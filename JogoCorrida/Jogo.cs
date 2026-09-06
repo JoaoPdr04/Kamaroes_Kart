@@ -8,6 +8,8 @@
 
         public int Velocidade { get; set; }
         public int Pontuacao { get; set; }
+        public int PontosFinais { get; set; }
+        public int MoedasColetadas { get; set; }
         public int Tempo { get; set; }
         public int MelhorPontuacao { get; set; }
         public int ColisoesPermitidas { get; set; }
@@ -114,20 +116,28 @@
                 if (ChecaFaixaElemento(Carro) == ChecaFaixaElemento(ob))
                 {
                     if (Math.Abs((Carro.PosicaoY + 50) - (ob.PosicaoY + 100)) <= 30)
+                    {
+                        ob.PosicaoY = -151;
+                        ob.PosicaoX = PosicionaObjeto(new Random().Next(1, 3));
                         return true;
+                    }
                 }
             }
             return false;
         }
 
-        public bool ChecarPontuacao()
+        public bool ChecarMoeda()
         {
             foreach (var md in Moedas)
             {
                 if (ChecaFaixaElemento(Carro) == ChecaFaixaElemento(md))
                 {
                     if (Math.Abs((Carro.PosicaoY + 50) - (md.PosicaoY + 100)) <= 30)
+                    {
+                        md.PosicaoY = -100;
+                        md.PosicaoX = PosicionaObjeto(new Random().Next(1, 3));
                         return true;
+                    }
                 }
             }
             return false;
@@ -135,26 +145,40 @@
 
         public bool VerificaFimJogo()
         {
-            return ChecarColisao();
+            if (ColisoesPermitidas <= 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void MovimentaObstaculos()
         {
+            Random rnd = new Random();
+
             foreach (var ob in Obstaculos)
             {
-                ob.PosicaoY += 15;
+                ob.PosicaoY += 10;
                 if(ob.PosicaoY > YMaximo)
                 {
+                    Pontuacao += 10;
                     ob.PosicaoY = 0;
+                    ob.PosicaoX = PosicionaObjeto(new Random().Next(1, 3));
+
+                    if (Pontuacao >= 300)
+                    {
+                        ob.TipoImagem = rnd.Next(1,3);
+                    }
                 }
             }
 
             foreach (var md in Moedas)
             {
-                md.PosicaoY += 50;
+                md.PosicaoY += 15;
                 if (md.PosicaoY > YMaximo)
                 {
                     md.PosicaoY = 0;
+                    md.PosicaoX = PosicionaObjeto(new Random().Next(1, 3));
                 }
             }
         }
