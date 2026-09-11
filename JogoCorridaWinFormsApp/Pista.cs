@@ -14,8 +14,9 @@ namespace JogoCorridaWinFormsApp
         List<PictureBox> pictureBoxes = [];
         List<PictureBox> pictureBoxesMD = [];
 
+        DateTime momentoInicioJogo;
 
-        public Pista(string Nível) //método construtor que vai dar nascimento para o projeto
+        public Pista(string Nível)
         {
             InitializeComponent();
 
@@ -25,7 +26,7 @@ namespace JogoCorridaWinFormsApp
 
             TocarSomCorrida();
 
-            jogo = new Jogo(); //aqui instanciamos o objeto jogo da classe Jogo
+            jogo = new Jogo();
             jogo.Faixa1Inicio = 150;
             jogo.Faixa1Fim = 310;
             jogo.Faixa2Inicio = 380;
@@ -64,6 +65,7 @@ namespace JogoCorridaWinFormsApp
                 this.Controls.Add(picOb);
             }
             timerJogo.Enabled = true;
+            momentoInicioJogo = DateTime.Now;
             lblMoedas.Text = "Moedas: 0";
             lblPontuacao.Text = "Pontuação: " + jogo.Pontuacao;
 
@@ -97,7 +99,19 @@ namespace JogoCorridaWinFormsApp
             picCarro.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
             lblPontuacao.Text = "Pontuação: " + jogo.Pontuacao;
 
-            jogo.Pontuacao++;
+            lblVida.Text = "Vidas: " + jogo.ColisoesPermitidas;
+            lblFase.Text = "Fase: " + jogo.Fase;
+
+            TimeSpan tempoDecorrido = DateTime.Now - momentoInicioJogo;
+            lblTempo.Text = "Tempo: " + tempoDecorrido.ToString(@"mm\:ss");
+
+            int segundosAtuais = (int)tempoDecorrido.TotalSeconds;
+            if (segundosAtuais > jogo.Tempo)
+            {
+                jogo.Tempo = segundosAtuais; 
+                jogo.Pontuacao += 1;       
+                lblPontuacao.Text = "Pontuação: " + jogo.Pontuacao;
+            }
 
             if ((DateTime.Now - temporUltimaMovimentacao).Milliseconds >= jogo.Velocidade)
             {
@@ -131,24 +145,27 @@ namespace JogoCorridaWinFormsApp
 
             if (jogo.ChecarColisao())
             {
+                TocarSomBatida();
+                lblVida.Text = "Vidas: " + jogo.ColisoesPermitidas;
                 timerJogo.Enabled = false;
                 var imagemDoCarro = picCarro.Image;
                 picCarro.Image = Properties.Resources.explosao;
-                await Task.Delay(250);
+                await Task.Delay(500);
                 picCarro.Image = imagemDoCarro;
-                TocarSomBatida();
                 jogo.ColisoesPermitidas -= 1;
 
                 if (jogo.VerificaFimJogo())
                 {
                     jogo.PontosFinais = jogo.Pontuacao + (jogo.MoedasColetadas * 10);
                     MessageBox.Show("Fim de Jogo!\n" +
+                        "Tempo de Jogo: " + tempoDecorrido.ToString(@"mm\:ss") + "\n" +
                         "Moedas coletadas: " + jogo.MoedasColetadas.ToString() + " = " + jogo.MoedasColetadas * 10 + " pontos\n" +
                         "Pontuação final: " + jogo.PontosFinais.ToString() + " pontos");
 
                     Application.Restart();
                 }
                 else timerJogo.Enabled = true;
+                TocarSomCorrida();
             }
 
             if (jogo.ChecarMoeda())
@@ -157,42 +174,30 @@ namespace JogoCorridaWinFormsApp
                 lblMoedas.Text = "Moedas: " + jogo.MoedasColetadas.ToString();
             }
 
-            if (jogo.Pontuacao >= 300)
+            if (jogo.Pontuacao >= 100)
             {
                 this.BackgroundImage = Properties.Resources.Fase2FimDeTarde;
-//                jogo.Velocidade += 50;
+                jogo.Fase = 2;
             }
 
-            if (jogo.Pontuacao >= 750)
+            if (jogo.Pontuacao >= 200)
             {
                 this.BackgroundImage = Properties.Resources.Fase3Noite;
-  //              jogo.Velocidade += 100;
+                jogo.Fase = 3;
             }
         }
 
         private void TocarSomCorrida()
         {
-            SoundPlayer sp = new SoundPlayer();
-            //sp.SoundLocation = "D:\\joao\\jogo\\somBatida.wav";
-            //sp.Play();
+            SoundPlayer sp = new SoundPlayer(Properties.Resources.musicaCarros);
+            sp.Play();
         }
 
         private void TocarSomBatida()
         {
-            SoundPlayer sp = new SoundPlayer();
-            //sp.SoundLocation = "D:\\joao\\jogo\\somBatida.wav";
-            //sp.Play();
-            Thread.Sleep(1000);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fotoMoeda_Click(object sender, EventArgs e)
-        {
-
+            SoundPlayer sp = new SoundPlayer(Properties.Resources.somBatida);
+            sp.Play();
+        //    Thread.Sleep(500);
         }
 
         //        private void btnReiniciar_Click(object sender, EventArgs e)

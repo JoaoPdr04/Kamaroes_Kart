@@ -18,6 +18,7 @@
         public int Faixa2Inicio { get; set; }
         public int Faixa2Fim { get; set; }
         public int YMaximo { get; set; } = 50;
+        public int Fase { get; set; } = 1;
 
         public void IniciaJogo()
         {

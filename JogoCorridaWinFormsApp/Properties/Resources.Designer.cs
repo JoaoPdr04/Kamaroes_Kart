@@ -111,12 +111,30 @@ namespace JogoCorridaWinFormsApp.Properties {
         }
         
         /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream musicaCarros {
+            get {
+                return ResourceManager.GetStream("musicaCarros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap picChick {
             get {
                 object obj = ResourceManager.GetObject("picChick", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.IO.UnmanagedMemoryStream semelhante a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream somBatida {
+            get {
+                return ResourceManager.GetStream("somBatida", resourceCulture);
             }
         }
     }

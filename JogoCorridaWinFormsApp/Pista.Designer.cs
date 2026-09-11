@@ -37,6 +37,9 @@
             lblMoedas = new Label();
             lblPontuacao = new Label();
             btnReiniciar = new Button();
+            lblTempo = new Label();
+            lblVida = new Label();
+            lblFase = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCarro).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fotoMoeda).BeginInit();
@@ -72,34 +75,32 @@
             // 
             fotoMoeda.BackColor = Color.Transparent;
             fotoMoeda.Image = (Image)resources.GetObject("fotoMoeda.Image");
-            fotoMoeda.Location = new Point(29, 61);
+            fotoMoeda.Location = new Point(12, 112);
             fotoMoeda.Name = "fotoMoeda";
-            fotoMoeda.Size = new Size(72, 87);
+            fotoMoeda.Size = new Size(41, 46);
             fotoMoeda.SizeMode = PictureBoxSizeMode.StretchImage;
             fotoMoeda.TabIndex = 3;
             fotoMoeda.TabStop = false;
-            fotoMoeda.Click += fotoMoeda_Click;
             // 
             // lblMoedas
             // 
             lblMoedas.AutoSize = true;
             lblMoedas.BackColor = Color.FromArgb(255, 255, 128);
-            lblMoedas.Font = new Font("Snap ITC", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMoedas.Font = new Font("Stencil", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMoedas.Location = new Point(12, 161);
             lblMoedas.Name = "lblMoedas";
-            lblMoedas.Size = new Size(79, 17);
+            lblMoedas.Size = new Size(67, 14);
             lblMoedas.TabIndex = 4;
             lblMoedas.Text = "Moedas: 0";
-            lblMoedas.Click += label1_Click;
             // 
             // lblPontuacao
             // 
             lblPontuacao.AutoSize = true;
             lblPontuacao.BackColor = SystemColors.ButtonHighlight;
-            lblPontuacao.Font = new Font("Snap ITC", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPontuacao.Location = new Point(12, 34);
+            lblPontuacao.Font = new Font("Stencil", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPontuacao.Location = new Point(12, 52);
             lblPontuacao.Name = "lblPontuacao";
-            lblPontuacao.Size = new Size(89, 15);
+            lblPontuacao.Size = new Size(82, 13);
             lblPontuacao.TabIndex = 5;
             lblPontuacao.Text = "Pontuação: 0";
             // 
@@ -116,6 +117,39 @@
             btnReiniciar.UseVisualStyleBackColor = false;
             btnReiniciar.Visible = false;
             // 
+            // lblTempo
+            // 
+            lblTempo.AutoSize = true;
+            lblTempo.BackColor = SystemColors.ActiveCaption;
+            lblTempo.Font = new Font("Stencil", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTempo.Location = new Point(12, 83);
+            lblTempo.Name = "lblTempo";
+            lblTempo.Size = new Size(56, 13);
+            lblTempo.TabIndex = 7;
+            lblTempo.Text = "Tempo: 0";
+            // 
+            // lblVida
+            // 
+            lblVida.AutoSize = true;
+            lblVida.BackColor = Color.FromArgb(255, 128, 128);
+            lblVida.Font = new Font("Stencil", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblVida.Location = new Point(639, 117);
+            lblVida.Name = "lblVida";
+            lblVida.Size = new Size(55, 14);
+            lblVida.TabIndex = 8;
+            lblVida.Text = "Vidas: 3";
+            // 
+            // lblFase
+            // 
+            lblFase.AutoSize = true;
+            lblFase.BackColor = Color.FromArgb(224, 224, 224);
+            lblFase.Font = new Font("Stencil", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFase.Location = new Point(333, 31);
+            lblFase.Name = "lblFase";
+            lblFase.Size = new Size(78, 25);
+            lblFase.TabIndex = 9;
+            lblFase.Text = "Fase 1";
+            // 
             // Pista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -123,6 +157,9 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(740, 742);
+            Controls.Add(lblFase);
+            Controls.Add(lblVida);
+            Controls.Add(lblTempo);
             Controls.Add(btnReiniciar);
             Controls.Add(lblPontuacao);
             Controls.Add(lblMoedas);
@@ -152,5 +189,8 @@
         private Label lblMoedas;
         private Label lblPontuacao;
         private Button btnReiniciar;
+        private Label lblTempo;
+        private Label lblVida;
+        private Label lblFase;
     }
 }
